@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, signal, WritableSignal } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { Corner } from './images/corner/corner';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [RouterOutlet, Corner],
   templateUrl: './app.html',
-  styleUrl: './app.css'
 })
 export class App {
+  title: WritableSignal<string> = signal('Monedero');
 }

@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Caslon";
+  src:
+    url("/fonts/CaslonAntique.ttf") format("truetype"),
+    url("/fonts/CaslonAntique-Italic.ttf") format("truetype"),
+    url("/fonts/CaslonAntique-BoldItalic.ttf") format("truetype"),
+    url("/fonts/CaslonAntique-Bold.ttf") format("truetype");
+}
+
+@theme {
+  --font-caslon: "Caslon", "sans-serif";
+}
