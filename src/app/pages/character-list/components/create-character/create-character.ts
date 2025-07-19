@@ -13,7 +13,7 @@ import { Plus } from '../../../../images/plus/plus';
   templateUrl: './create-character.html',
 })
 export class CreateCharacter {
-  showForm: WritableSignal<boolean> = signal<boolean>(true);
+  showForm: WritableSignal<boolean> = signal<boolean>(false);
 
   private fb = inject(FormBuilder);
 
