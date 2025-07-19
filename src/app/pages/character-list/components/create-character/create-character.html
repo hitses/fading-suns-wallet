@@ -1,0 +1,86 @@
+@if (showForm()) {
+  <form
+    [formGroup]="createCharacterForm"
+    (ngSubmit)="submit()"
+    class="absolute bottom-2 left-2 rounded-lg p-2 flex flex-col gap-2"
+  >
+    <input
+      class="font-caslon text-lg border-b outline-none"
+      type="text"
+      formControlName="name"
+      placeholder="Nombre"
+    />
+
+    <input
+      class="font-caslon text-lg border-b outline-none"
+      type="number"
+      formControlName="fenix"
+      step="1"
+      placeholder="Fénix"
+      (input)="validateNumericInputs($event, 1)"
+    />
+
+    <input
+      class="font-caslon text-lg border-b outline-none"
+      type="number"
+      formControlName="blason"
+      step="1"
+      placeholder="Blasones"
+      (input)="validateNumericInputs($event, 0, 1)"
+    />
+
+    <input
+      class="font-caslon text-lg border-b outline-none"
+      type="number"
+      formControlName="ala"
+      step="1"
+      placeholder="Alas"
+      (input)="validateNumericInputs($event, 0, 3)"
+    />
+
+    <input
+      class="font-caslon text-lg border-b outline-none"
+      type="number"
+      formControlName="cresta"
+      step="1"
+      placeholder="Crestas"
+      (input)="validateNumericInputs($event, 0, 99)"
+    />
+
+    <input
+      class="font-caslon text-lg border-b outline-none"
+      type="number"
+      formControlName="exp"
+      step="1"
+      placeholder="Experiencia"
+      (input)="validateNumericInputs($event, 0)"
+    />
+
+    <input
+      class="font-caslon text-lg border-b outline-none"
+      type="number"
+      formControlName="health"
+      step="1"
+      placeholder="Vitalidad"
+      (input)="validateNumericInputs($event, 5, 18)"
+    />
+
+    <input
+      class="font-caslon text-lg border-b outline-none"
+      type="number"
+      formControlName="wyrd"
+      step="1"
+      placeholder="Wyrd"
+      (input)="validateNumericInputs($event, 0, 18)"
+    />
+
+    <button class="font-caslon text-lg w-fit mt-2" type="submit">Crear</button>
+  </form>
+}
+
+<button
+  (click)="toggleShowForm()"
+  class="absolute right-2 bottom-2 bg-black rounded-full p-2 text-white"
+>
+  <plus-image [showForm]="showForm()" />
+</button>

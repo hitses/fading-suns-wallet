@@ -1,1 +1,13 @@
-<p>character-list works!</p>
+<section class="px-2">
+  @if (pjs().length > 0) {
+    @for (pj of pjs(); track $index) {
+      <h2>
+        <a routerLink="/{{ pj.name }}">{{ pj.name | titlecase }}</a>
+      </h2>
+    }
+  } @else {
+    <h2 class="font-caslon text-xl">Crea un nuevo personaje</h2>
+  }
+</section>
+
+<create-character-component />
