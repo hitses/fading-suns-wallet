@@ -1,6 +1,7 @@
 import {
   Component,
   inject,
+  OnDestroy,
   output,
   signal,
   WritableSignal,
@@ -21,7 +22,7 @@ import { CharacterService } from '../../../character/character.service';
   imports: [ReactiveFormsModule, Plus],
   templateUrl: './create-character.html',
 })
-export class CreateCharacter {
+export class CreateCharacter implements OnDestroy {
   newCharacter = output<Character>();
 
   showForm: WritableSignal<boolean> = signal<boolean>(false);
@@ -29,6 +30,10 @@ export class CreateCharacter {
 
   private fb = inject(FormBuilder);
   private readonly characterService = inject(CharacterService);
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
   createCharacterForm: FormGroup = this.fb.group({
     name: [
@@ -68,6 +73,12 @@ export class CreateCharacter {
   }
 
   submit() {
+    if (this.createCharacterForm.invalid) {
+      this.createCharacterForm.markAllAsTouched();
+
+      return;
+    }
+
     const newCharacter: Character = {
       name: this.createCharacterForm.value.name,
       fenix: this.createCharacterForm.value.fenix,
@@ -84,6 +95,8 @@ export class CreateCharacter {
       this.characterService.addCharacter(newCharacter).subscribe({
         next: (id) => {
           console.log(`Jugador añadido con ID: ${id}`);
+          this.createCharacterForm.reset();
+          this.toggleShowForm();
           this.newCharacter.emit(newCharacter);
         },
         error: (err) => console.error('Error al añadir jugador:', err),

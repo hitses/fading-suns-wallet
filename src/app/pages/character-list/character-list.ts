@@ -1,6 +1,7 @@
 import {
   Component,
   inject,
+  OnDestroy,
   OnInit,
   signal,
   WritableSignal,
@@ -17,7 +18,7 @@ import { CharacterService } from '../character/character.service';
   imports: [RouterLink, TitleCasePipe, CreateCharacter],
   templateUrl: './character-list.html',
 })
-export default class CharacterList implements OnInit {
+export default class CharacterList implements OnInit, OnDestroy {
   characters: WritableSignal<Character[]> = signal<Character[]>([]);
   private subscriptions: Subscription = new Subscription();
 
@@ -25,6 +26,10 @@ export default class CharacterList implements OnInit {
 
   ngOnInit(): void {
     this.loadPlayers();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   loadPlayers(): void {
