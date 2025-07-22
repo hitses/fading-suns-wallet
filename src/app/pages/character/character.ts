@@ -16,23 +16,17 @@ import {
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
+import { Navbar } from './components/navbar/navbar';
 
 @Component({
   selector: 'character-page',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, RouterOutlet],
+  imports: [RouterOutlet, RouterOutlet, Navbar],
   templateUrl: './character.html',
 })
 export default class Character implements OnInit, OnDestroy {
   character: WritableSignal<ICharacter | undefined> = signal<
     ICharacter | undefined
   >(undefined);
-  navItems: WritableSignal<{ name: string; link: string }[]> = signal<
-    { name: string; link: string }[]
-  >([
-    { name: 'Dinero', link: 'dinero' },
-    { name: 'Atributos', link: 'atributos' },
-    { name: 'Inventario', link: 'inventario' },
-  ]);
   private readonly slug: WritableSignal<string | null> = signal<string>('');
   private subscriptions: Subscription = new Subscription();
 
