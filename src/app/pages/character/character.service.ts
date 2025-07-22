@@ -29,6 +29,22 @@ export class CharacterService {
     );
   }
 
+  getCharacterBySlug(slug: string | null): Observable<Character | undefined> {
+    console.log(slug);
+    if (!slug) throw new Error('Slug is required for get operation.');
+
+    return from(this.dbService.getByIndex(this.storeName, 'slug', slug)).pipe(
+      map((result) => {
+        console.log(result);
+        if (Array.isArray(result) && result.length > 0)
+          return result[0] as Character;
+
+        return undefined;
+      }),
+      catchError((error) => throwError(() => error)),
+    );
+  }
+
   updatePlayer(player: Character): Observable<Character> {
     if (player.id === undefined)
       throw new Error('Player ID is required for update operation.');

@@ -1,6 +1,7 @@
 export interface Character {
   id?: number;
   name: string;
+  slug: string;
   // Monedas
   fenix: number;
   blason: number;

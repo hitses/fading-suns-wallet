@@ -12,6 +12,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import slugify from 'slugify';
 import { Plus } from '../../../../images/plus/plus';
 import { Character } from '../../../../interfaces/character';
 import { Subscription } from 'rxjs';
@@ -81,6 +82,7 @@ export class CreateCharacter implements OnDestroy {
 
     const newCharacter: Character = {
       name: this.createCharacterForm.value.name,
+      slug: slugify(this.createCharacterForm.value.name, { lower: true }),
       fenix: this.createCharacterForm.value.fenix,
       blason: this.createCharacterForm.value.blason,
       ala: this.createCharacterForm.value.ala,

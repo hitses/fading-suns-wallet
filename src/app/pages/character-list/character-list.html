@@ -3,7 +3,9 @@
     <ul>
       @for (pj of characters(); track $index) {
         <li>
-          <a routerLink="/{{ pj.name }}">{{ pj.name | titlecase }}</a>
+          <a class="font-caslon text-2xl" routerLink="/{{ pj.slug }}">{{
+            pj.name | titlecase
+          }}</a>
         </li>
       }
     </ul>
