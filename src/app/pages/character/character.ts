@@ -28,12 +28,19 @@ export default class Character implements OnInit, OnDestroy {
   private readonly characterService = inject(CharacterService);
 
   ngOnInit(): void {
+    this.loadCharacterFromUrl();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
+  loadCharacterFromUrl(): void {
     this.subscriptions.add(
       this.route.paramMap.subscribe((params) => {
         this.slug.set(params.get('slug'));
         if (this.slug) {
           console.log('Slug obtenido de la URL:', this.slug());
-          // Ahora puedes usar este slug para cargar el personaje desde tu DB local
           this.getCharacter(this.slug());
         } else {
           console.warn('No se encontró un slug en la URL.');
@@ -43,15 +50,10 @@ export default class Character implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
   getCharacter(slug: string | null): void {
     this.subscriptions.add(
       this.characterService.getCharacterBySlug(slug).subscribe({
         next: (data: ICharacter | undefined) => {
-          console.log(data);
           if (data) {
             this.character.set(data);
             console.log('Personaje cargado:', this.character());

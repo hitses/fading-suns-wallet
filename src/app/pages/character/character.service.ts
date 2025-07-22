@@ -35,11 +35,9 @@ export class CharacterService {
 
     return from(this.dbService.getByIndex(this.storeName, 'slug', slug)).pipe(
       map((result) => {
-        console.log(result);
-        if (Array.isArray(result) && result.length > 0)
-          return result[0] as Character;
+        if (!result) return undefined;
 
-        return undefined;
+        return result as Character;
       }),
       catchError((error) => throwError(() => error)),
     );
