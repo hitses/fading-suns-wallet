@@ -1,3 +1,23 @@
-<p>character works!</p>
+@if (!character()) {
+  <h2 class="font-caslon text-xl">Cargando personaje...</h2>
+} @else {
+  <h2 class="font-caslon text-xl">{{ character()?.name }}</h2>
 
-<button (click)="deleteCharacter()">Eliminar</button>
+  <router-outlet />
+
+  <button (click)="deleteCharacter()">Eliminar</button>
+  <button (click)="router.navigate(['/'])">Volver</button>
+
+  <nav
+    class="fixed bottom-0 w-full font-caslon text-xl flex gap-8 justify-evenly items-center h-12 bg-gray-900 text-white"
+  >
+    @for (item of navItems(); track $index) {
+      <a
+        routerLink="/{{ character()?.slug }}/{{ item.link }}"
+        routerLinkActive="underline"
+        class=""
+        >{{ item.name }}</a
+      >
+    }
+  </nav>
+}

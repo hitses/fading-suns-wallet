@@ -8,7 +8,8 @@ export const routes: Routes = [
   },
   {
     path: ':slug',
-    loadComponent: () => import('./pages/character/character'),
+    loadChildren: () =>
+      import('./pages/character/character.routes').then((r) => r.routes),
   },
   {
     path: '**',

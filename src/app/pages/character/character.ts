@@ -9,21 +9,34 @@ import {
 import { Subscription } from 'rxjs';
 import { CharacterService } from './character.service';
 import { Character as ICharacter } from '../../interfaces/character';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 
 @Component({
   selector: 'character-page',
-  imports: [],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './character.html',
 })
 export default class Character implements OnInit, OnDestroy {
   character: WritableSignal<ICharacter | undefined> = signal<
     ICharacter | undefined
   >(undefined);
+  navItems: WritableSignal<{ name: string; link: string }[]> = signal<
+    { name: string; link: string }[]
+  >([
+    { name: 'Dinero', link: 'dinero' },
+    { name: 'Atributos', link: 'atributos' },
+    { name: 'Inventario', link: 'inventario' },
+  ]);
   private readonly slug: WritableSignal<string | null> = signal<string>('');
   private subscriptions: Subscription = new Subscription();
 
-  private readonly router = inject(Router);
+  readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly characterService = inject(CharacterService);
 
