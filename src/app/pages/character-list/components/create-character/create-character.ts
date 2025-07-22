@@ -1,4 +1,10 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  inject,
+  output,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -6,6 +12,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { Plus } from '../../../../images/plus/plus';
+import { Character } from '../../../../interfaces/character';
+import { Subscription } from 'rxjs';
+import { CharacterService } from '../../../character/character.service';
 
 @Component({
   selector: 'create-character-component',
@@ -13,9 +22,13 @@ import { Plus } from '../../../../images/plus/plus';
   templateUrl: './create-character.html',
 })
 export class CreateCharacter {
+  newCharacter = output<Character>();
+
   showForm: WritableSignal<boolean> = signal<boolean>(false);
+  private subscriptions: Subscription = new Subscription();
 
   private fb = inject(FormBuilder);
+  private readonly characterService = inject(CharacterService);
 
   createCharacterForm: FormGroup = this.fb.group({
     name: [
@@ -55,6 +68,26 @@ export class CreateCharacter {
   }
 
   submit() {
-    console.log(this.createCharacterForm.value);
+    const newCharacter: Character = {
+      name: this.createCharacterForm.value.name,
+      fenix: this.createCharacterForm.value.fenix,
+      blason: this.createCharacterForm.value.blason,
+      ala: this.createCharacterForm.value.ala,
+      cresta: this.createCharacterForm.value.cresta,
+      exp: this.createCharacterForm.value.exp,
+      health: this.createCharacterForm.value.health,
+      wyrd: this.createCharacterForm.value.wyrd,
+      bag: [],
+    };
+
+    this.subscriptions.add(
+      this.characterService.addCharacter(newCharacter).subscribe({
+        next: (id) => {
+          console.log(`Jugador añadido con ID: ${id}`);
+          this.newCharacter.emit(newCharacter);
+        },
+        error: (err) => console.error('Error al añadir jugador:', err),
+      }),
+    );
   }
 }

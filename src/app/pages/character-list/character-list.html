@@ -1,13 +1,15 @@
 <section class="px-2">
-  @if (pjs().length > 0) {
-    @for (pj of pjs(); track $index) {
-      <h2>
-        <a routerLink="/{{ pj.name }}">{{ pj.name | titlecase }}</a>
-      </h2>
-    }
+  @if (characters().length > 0) {
+    <ul>
+      @for (pj of characters(); track $index) {
+        <li>
+          <a routerLink="/{{ pj.name }}">{{ pj.name | titlecase }}</a>
+        </li>
+      }
+    </ul>
   } @else {
     <h2 class="font-caslon text-xl">Crea un nuevo personaje</h2>
   }
 </section>
 
-<create-character-component />
+<create-character-component (newCharacter)="loadPlayers()" />
