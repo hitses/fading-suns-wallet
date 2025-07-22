@@ -1,1 +1,7 @@
-<p>money works!</p>
+@if (!character()) {
+  <h2 class="font-caslon text-xl">Cargando personaje...</h2>
+} @else {
+  <h2 class="font-caslon text-xl">{{ character()?.name }}</h2>
+
+  <h2 class="font-caslon text-xl">Dinero</h2>
+}

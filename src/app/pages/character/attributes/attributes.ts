@@ -10,10 +10,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CharacterService } from '../character.service';
 import { Character } from '../../../interfaces/character';
+import { Vitality } from './components/vitality/vitality';
+import { Wyrd } from './components/wyrd/wyrd';
 
 @Component({
   selector: 'attributes-component',
-  imports: [],
+  imports: [Vitality, Wyrd],
   templateUrl: './attributes.html',
 })
 export default class Attributes implements OnInit, OnDestroy {

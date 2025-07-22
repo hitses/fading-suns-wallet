@@ -1,7 +1,7 @@
 @if (!character()) {
   <h2 class="font-caslon text-xl">Cargando personaje...</h2>
 } @else {
-  <h2 class="font-caslon text-xl">{{ character()?.name }}</h2>
+  <h2 class="font-caslon text-4xl pl-2">{{ character()?.name }}</h2>
 
   <router-outlet />
 

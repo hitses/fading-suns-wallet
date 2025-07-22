@@ -89,7 +89,9 @@ export class CreateCharacter implements OnDestroy {
       cresta: this.createCharacterForm.value.cresta,
       exp: this.createCharacterForm.value.exp,
       health: this.createCharacterForm.value.health,
+      currentHealth: this.createCharacterForm.value.health,
       wyrd: this.createCharacterForm.value.wyrd,
+      currentWyrd: this.createCharacterForm.value.wyrd,
       bag: [],
     };
 

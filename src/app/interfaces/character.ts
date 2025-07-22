@@ -11,7 +11,9 @@ export interface Character {
   exp: number;
   // Atributos
   health: number;
+  currentHealth: number;
   wyrd: number;
+  currentWyrd: number;
   // Inventario
   bag: string[];
 }

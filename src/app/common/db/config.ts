@@ -2,7 +2,7 @@ import { DBConfig } from 'ngx-indexed-db';
 
 export const dbConfig: DBConfig = {
   name: 'FadingSunsWalletDB',
-  version: 2,
+  version: 3,
   objectStoresMeta: [
     {
       store: 'characters',
