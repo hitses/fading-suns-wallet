@@ -43,8 +43,6 @@ export class CharacterService {
   }
 
   updateCharacter(character: Character): Observable<Character> {
-    console.log('Updating character:', character);
-
     if (character.id === undefined)
       throw new Error('Character ID is required for update operation.');
 
