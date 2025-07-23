@@ -33,48 +33,28 @@ export class Vitality {
 
     this.health.set(char!.health);
     this.currentHealth.set(char!.currentHealth);
-    console.log('Character health:', this.health());
-    console.log('Character currentHealth:', this.currentHealth());
 
     if (char && char.health !== undefined && char.currentHealth !== undefined) {
       const initialDamage = char.health - char.currentHealth;
+
       if (initialDamage > 0) {
         const initialCrossed = new Set<number>();
+
         // Marcar los puntos desde la vitalidad máxima hacia abajo, hasta la vitalidad actual + 1
         for (let i = char.health; i > char.currentHealth; i--) {
           initialCrossed.add(i);
         }
-        console.log(initialCrossed);
+
         this.crossedPoints.set(initialCrossed);
       }
     }
-    // const char = this.character();
-
-    // if (char) {
-    //   this.health.set(char.health);
-    //   this.currentHealth.set(char.currentHealth);
-
-    //   // CurrentHealth representa el daño
-    //   // Se inicializa crossedPoints basándose en la diferencia entre health y currentHealth
-    //   const initialDamage = char.health - char.currentHealth;
-    //   if (initialDamage > 0) {
-    //     const initialCrossed = new Set<number>();
-    //     for (let i = char.health; i > char.currentHealth; i--) {
-    //       initialCrossed.add(i);
-    //     }
-    //     this.crossedPoints.set(initialCrossed);
-    //   }
-    // }
   }
 
   onClickPoint(clickedPoint: number): void {
     const health = this.health();
     const currentHealth = this.currentHealth();
 
-    if (currentHealth === undefined) {
-      console.warn('Vitalidad no definida.');
-      return;
-    }
+    if (currentHealth === undefined) return;
 
     // Un punto no es clicable si es mayor que la vitalidad máxima
     if (clickedPoint > health) return;
@@ -82,21 +62,20 @@ export class Vitality {
     const currentCrossedPoints = new Set(this.crossedPoints());
     const hasCross = currentCrossedPoints.has(clickedPoint);
 
-    if (!hasCross) {
-      // Acción: Añadir cruces (simulando daño)
-      // Marca el punto clicado y todos los puntos *superiores*
+    // Añadir cruces (simulando daño)
+    // Marca el punto clicado y todos los puntos *superiores*
+    if (!hasCross)
       for (let i = currentHealth; i >= clickedPoint; i--) {
         if (i <= currentHealth) {
           currentCrossedPoints.add(i);
         }
       }
-    } else {
-      // Acción: Quitar cruces (simulando recuperación)
-      // Desmarca el punto clicado y todos los puntos *inferiores*
+    // Quitar cruces (simulando recuperación)
+    // Desmarca el punto clicado y todos los puntos *inferiores*
+    else
       for (let i = 1; i <= clickedPoint; i++) {
         currentCrossedPoints.delete(i);
       }
-    }
 
     this.crossedPoints.set(currentCrossedPoints);
 
