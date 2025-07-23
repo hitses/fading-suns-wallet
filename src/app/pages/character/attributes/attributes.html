@@ -2,7 +2,7 @@
   <h2 class="font-caslon text-xl">Cargando atributos...</h2>
 } @else {
   <div class="flex justify-between p-2 pt-12">
-    <vitality-component [health]="character()?.health" />
+    <vitality-component [character]="character()" />
 
     <wyrd-component />
   </div>

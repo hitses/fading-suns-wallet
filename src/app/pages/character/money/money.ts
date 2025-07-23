@@ -39,13 +39,8 @@ export default class Money implements OnInit, OnDestroy {
       this.route.parent!.paramMap.subscribe((params) => {
         const slugValue = params.get('slug');
 
-        if (slugValue) {
-          console.log('Slug obtenido del padre (URL):', slugValue);
-          this.getCharacter(slugValue);
-        } else {
-          console.warn('No se encontró un slug en la URL del padre.');
-          this.character.set(undefined);
-        }
+        if (slugValue) this.getCharacter(slugValue);
+        else this.character.set(undefined);
       }),
     );
   }
@@ -54,16 +49,10 @@ export default class Money implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.characterService.getCharacterBySlug(slug).subscribe({
         next: (data: Character | undefined) => {
-          if (data) {
-            this.character.set(data);
-            console.log('Personaje cargado:', this.character());
-          } else {
-            console.warn(`Personaje con slug "${slug}" no encontrado.`);
-            this.character.set(undefined);
-          }
+          if (data) this.character.set(data);
+          else this.character.set(undefined);
         },
         error: (err) => {
-          console.log(err);
           console.error('Error al cargar personaje:', err);
           this.character.set(undefined);
         },

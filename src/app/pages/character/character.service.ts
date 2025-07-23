@@ -15,7 +15,7 @@ export class CharacterService {
     return from(this.dbService.add(this.storeName, character));
   }
 
-  getAllPlayers(): Observable<Character[]> {
+  getAllCharacters(): Observable<Character[]> {
     return from(this.dbService.getAll(this.storeName)).pipe(
       map((result) => result as Character[]),
       catchError((error) => throwError(() => error.error)),
@@ -30,7 +30,6 @@ export class CharacterService {
   }
 
   getCharacterBySlug(slug: string | null): Observable<Character | undefined> {
-    console.log(slug);
     if (!slug) throw new Error('Slug is required for get operation.');
 
     return from(this.dbService.getByIndex(this.storeName, 'slug', slug)).pipe(
@@ -43,14 +42,16 @@ export class CharacterService {
     );
   }
 
-  updatePlayer(player: Character): Observable<Character> {
-    if (player.id === undefined)
-      throw new Error('Player ID is required for update operation.');
+  updateCharacter(character: Character): Observable<Character> {
+    console.log('Updating character:', character);
 
-    return from(this.dbService.update(this.storeName, player));
+    if (character.id === undefined)
+      throw new Error('Character ID is required for update operation.');
+
+    return from(this.dbService.update(this.storeName, character));
   }
 
-  deletePlayer(id: number): Observable<boolean[] | unknown[]> {
+  deleteCharacter(id: number): Observable<boolean[] | unknown[]> {
     return from(this.dbService.delete(this.storeName, id));
   }
 }

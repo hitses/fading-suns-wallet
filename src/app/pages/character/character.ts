@@ -46,13 +46,9 @@ export default class Character implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.route.paramMap.subscribe((params) => {
         this.slug.set(params.get('slug'));
-        if (this.slug) {
-          console.log('Slug obtenido de la URL:', this.slug());
-          this.getCharacter(this.slug());
-        } else {
-          console.warn('No se encontró un slug en la URL.');
-          this.character.set(undefined);
-        }
+
+        if (this.slug) this.getCharacter(this.slug());
+        else this.character.set(undefined);
       }),
     );
   }
@@ -61,30 +57,18 @@ export default class Character implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.characterService.getCharacterBySlug(slug).subscribe({
         next: (data: ICharacter | undefined) => {
-          if (data) {
-            this.character.set(data);
-            console.log('Personaje cargado:', this.character());
-          } else {
-            console.warn(`Personaje con slug "${slug}" no encontrado.`);
-            this.character.set(undefined);
-          }
+          if (data) this.character.set(data);
+          else this.character.set(undefined);
         },
-        error: (err) => {
-          console.log(err);
-          console.error('Error al cargar personaje:', err);
-          this.character.set(undefined);
-        },
+        error: (err) => this.character.set(undefined),
       }),
     );
   }
 
   deleteCharacter(): void {
     this.subscriptions.add(
-      this.characterService.deletePlayer(this.character()!.id!).subscribe({
-        next: (data: boolean[] | unknown[]) => {
-          console.log('Personaje eliminado:', data);
-          this.router.navigate(['/']);
-        },
+      this.characterService.deleteCharacter(this.character()!.id!).subscribe({
+        next: (data: boolean[] | unknown[]) => this.router.navigate(['/']),
         error: (err) => console.error('Error al eliminar personaje:', err),
       }),
     );

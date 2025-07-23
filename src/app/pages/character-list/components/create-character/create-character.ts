@@ -98,7 +98,6 @@ export class CreateCharacter implements OnDestroy {
     this.subscriptions.add(
       this.characterService.addCharacter(newCharacter).subscribe({
         next: (id) => {
-          console.log(`Jugador añadido con ID: ${id}`);
           this.createCharacterForm.reset();
           this.toggleShowForm();
           this.newCharacter.emit(newCharacter);

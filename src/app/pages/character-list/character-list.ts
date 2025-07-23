@@ -34,11 +34,8 @@ export default class CharacterList implements OnInit, OnDestroy {
 
   loadPlayers(): void {
     this.subscriptions.add(
-      this.characterService.getAllPlayers().subscribe({
-        next: (data: Character[]) => {
-          this.characters.set(data);
-          console.log('Jugadores cargados:', this.characters());
-        },
+      this.characterService.getAllCharacters().subscribe({
+        next: (data: Character[]) => this.characters.set(data),
         error: (err) => console.error('Error al cargar jugadores:', err),
       }),
     );
