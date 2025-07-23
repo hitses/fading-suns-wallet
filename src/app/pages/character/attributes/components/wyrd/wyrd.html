@@ -1,9 +1,23 @@
-<h2 class="font-caslon text-2xl">Wyrd</h2>
+<h2 class="font-caslon text-2xl">{{ wyrd() }} - Wyrd</h2>
 
 <div class="flex gap-1 border-2 rounded-xl p-2 pr-4 pl-4 w-20 justify-center">
   <ul class="flex flex-col gap-2 pt-0.5">
     @for (point of points; track $index) {
-      <li class="border-2 w-5 h-5 rounded-full"></li>
+      <li
+        class="border-2 w-5 h-5 rounded-full relative overflow-hidden"
+        [ngClass]="{
+          'bg-black': point > wyrd()!,
+          'cursor-pointer': point <= 5,
+        }"
+        (click)="onClickPoint(point)"
+      >
+        @if (shouldShowCross(point)) {
+          <span
+            class="absolute bottom-[1px] left-[3px] font-bold leading-none text-black"
+            >&times;</span
+          >
+        }
+      </li>
     }
   </ul>
 </div>

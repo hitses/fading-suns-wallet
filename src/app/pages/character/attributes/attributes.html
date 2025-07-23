@@ -1,9 +1,9 @@
 @if (!character()) {
   <h2 class="font-caslon text-xl">Cargando atributos...</h2>
 } @else {
-  <div class="flex justify-between p-2 pt-12">
+  <div class="flex m-auto justify-between p-2 pt-12 max-w-2xs">
     <vitality-component [character]="character()" />
 
-    <wyrd-component />
+    <wyrd-component [character]="character()" />
   </div>
 }

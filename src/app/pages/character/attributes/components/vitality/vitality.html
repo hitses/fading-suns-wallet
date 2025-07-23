@@ -1,4 +1,4 @@
-<h2 class="font-caslon text-2xl">Vitalidad: {{ health() }}</h2>
+<h2 class="font-caslon text-2xl">Vitalidad - {{ health() }}</h2>
 
 <div class="flex gap-1 border-2 rounded-xl p-2 pr-4 pl-4 w-20">
   <ul class="flex flex-col">
@@ -17,6 +17,7 @@
         class="border-2 w-5 h-5 rounded-full relative overflow-hidden"
         [ngClass]="{
           'bg-black': point > health()!,
+          'cursor-pointer': point <= health()!,
           'border-red-600': point <= 5,
         }"
         (click)="onClickPoint(point)"

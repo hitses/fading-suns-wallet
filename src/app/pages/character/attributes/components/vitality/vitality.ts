@@ -18,13 +18,12 @@ export class Vitality {
   character = input.required<Character | undefined>();
   health: WritableSignal<number> = signal<number>(0);
   currentHealth: WritableSignal<number> = signal<number>(0);
+  crossedPoints: WritableSignal<Set<number>> = signal(new Set<number>());
 
   points = [18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
   numberPoints = [
     18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 1, 2, 3, 4, 5,
   ];
-
-  crossedPoints: WritableSignal<Set<number>> = signal(new Set<number>());
 
   private readonly characterService = inject(CharacterService);
 
@@ -66,9 +65,7 @@ export class Vitality {
     // Marca el punto clicado y todos los puntos *superiores*
     if (!hasCross)
       for (let i = currentHealth; i >= clickedPoint; i--) {
-        if (i <= currentHealth) {
-          currentCrossedPoints.add(i);
-        }
+        if (i <= currentHealth) currentCrossedPoints.add(i);
       }
     // Quitar cruces (simulando recuperación)
     // Desmarca el punto clicado y todos los puntos *inferiores*
