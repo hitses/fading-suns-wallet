@@ -5,8 +5,12 @@
 
   <router-outlet />
 
-  <button (click)="deleteCharacter()">Eliminar</button>
-  <button (click)="router.navigate(['/'])">Volver</button>
+  <button class="fixed bottom-12 left-4" (click)="deleteCharacter()">
+    Eliminar
+  </button>
+  <button class="fixed bottom-12 right-4" (click)="router.navigate(['/'])">
+    Volver
+  </button>
 
   <navbar-component [character]="character()"></navbar-component>
 }
