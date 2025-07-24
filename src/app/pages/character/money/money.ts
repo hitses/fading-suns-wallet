@@ -20,7 +20,6 @@ export default class Money implements OnInit, OnDestroy {
   character: WritableSignal<Character | undefined> = signal<
     Character | undefined
   >(undefined);
-  private readonly slug: WritableSignal<string | null> = signal<string>('');
   private subscriptions: Subscription = new Subscription();
 
   private readonly route = inject(ActivatedRoute);
@@ -60,28 +59,35 @@ export default class Money implements OnInit, OnDestroy {
     );
   }
 
+  saveCharacter(): void {
+    this.subscriptions.add(
+      this.characterService.updateCharacter(this.character()!).subscribe({
+        next: (data: Character) => this.character.set(data),
+        error: (err) => console.error('Error al actualizar personaje:', err),
+      }),
+    );
+  }
+
   incrementAttribute(currency: keyof Character, value: number): void {
     (this.character()![currency] as number) += value;
-    console.log(
-      `Incremented ${currency} by ${value}. New value: ${this.character()![currency]}`,
-    );
   }
 
   decrementAttribute(currency: keyof Character, value: number): void {
     if ((this.character()![currency] as number) - value >= 0) {
       (this.character()![currency] as number) -= value;
-      console.log(
-        `Decrement ${currency} by ${value}. New value: ${this.character()![currency]}`,
-      );
     }
   }
 
   plusFenix(value: number): void {
     this.incrementAttribute('fenix', value);
+
+    this.saveCharacter();
   }
 
   minusFenix(value: number): void {
     this.decrementAttribute('fenix', value);
+
+    this.saveCharacter();
   }
 
   plusBlason(): void {
@@ -89,6 +95,8 @@ export default class Money implements OnInit, OnDestroy {
       this.decrementAttribute('blason', 1);
       this.incrementAttribute('fenix', 1);
     } else this.incrementAttribute('blason', 1);
+
+    this.saveCharacter();
   }
 
   minusBlason(): void {
@@ -96,6 +104,8 @@ export default class Money implements OnInit, OnDestroy {
       this.incrementAttribute('blason', 1);
       this.decrementAttribute('fenix', 1);
     } else this.decrementAttribute('blason', 1);
+
+    this.saveCharacter();
   }
 
   plusAla(): void {
@@ -107,6 +117,8 @@ export default class Money implements OnInit, OnDestroy {
         this.incrementAttribute('fenix', 1);
       }
     } else this.incrementAttribute('ala', 1);
+
+    this.saveCharacter();
   }
 
   minusAla(): void {
@@ -130,6 +142,8 @@ export default class Money implements OnInit, OnDestroy {
     )
       this.decrementAttribute('ala', 0);
     else this.decrementAttribute('ala', 1);
+
+    this.saveCharacter();
   }
 
   plusCresta(value: number): void {
@@ -147,6 +161,8 @@ export default class Money implements OnInit, OnDestroy {
         }
       }
     }
+
+    this.saveCharacter();
   }
 
   minusCresta(value: number): void {
@@ -165,5 +181,7 @@ export default class Money implements OnInit, OnDestroy {
         this.incrementAttribute('cresta', 100 - value);
       }
     } else this.decrementAttribute('cresta', value);
+
+    this.saveCharacter();
   }
 }
