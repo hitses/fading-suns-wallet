@@ -12,10 +12,11 @@ import { CharacterService } from '../character.service';
 import { Character } from '../../../interfaces/character';
 import { Vitality } from './components/vitality/vitality';
 import { Wyrd } from './components/wyrd/wyrd';
+import { Experience } from './components/experience/experience';
 
 @Component({
   selector: 'attributes-component',
-  imports: [Vitality, Wyrd],
+  imports: [Vitality, Wyrd, Experience],
   templateUrl: './attributes.html',
 })
 export default class Attributes implements OnInit, OnDestroy {
