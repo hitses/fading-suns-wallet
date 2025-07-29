@@ -23,7 +23,6 @@ export default class Attributes implements OnInit, OnDestroy {
   character: WritableSignal<Character | undefined> = signal<
     Character | undefined
   >(undefined);
-  private readonly slug: WritableSignal<string | null> = signal<string>('');
   private subscriptions: Subscription = new Subscription();
 
   private readonly route = inject(ActivatedRoute);

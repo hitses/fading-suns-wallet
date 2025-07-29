@@ -1,1 +1,31 @@
-<p>inventory works!</p>
+@if (!character()) {
+  <h2 class="font-caslon text-xl">Cargando inventario...</h2>
+} @else {
+  <div class="p-2 mt-12 h-[580px] overflow-y-auto">
+    @for (object of character()?.bag; track $index) {
+      <div class="flex justify-between">
+        <p>{{ object }}</p>
+
+        <button class="cursor-pointer" (click)="deleteObject($index)">X</button>
+      </div>
+    }
+  </div>
+
+  <form
+    [formGroup]="createObjectForm"
+    (ngSubmit)="submit()"
+    class="fixed bottom-20 w-full flex justify-between px-2"
+  >
+    <label for="object"
+      >Nuevo objeto
+
+      <input
+        class="border-b outline-none"
+        type="text"
+        formControlName="object"
+      />
+    </label>
+
+    <button type="submit">Crear</button>
+  </form>
+}
