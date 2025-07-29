@@ -5,9 +5,21 @@
 
   <router-outlet />
 
-  <button class="fixed bottom-13 left-4" (click)="deleteCharacter()">
+  <dialog #deleteCharacterDialog id="deleteCharacterDialog" closedby="any">
+    <h2>¿Estás seguro de que quieres eliminar a este personaje?</h2>
+    <p><b>Atención:</b> esto no se puede deshacer.</p>
+
+    <form method="dialog">
+      <button (click)="deleteCharacter()">Eliminar</button>
+
+      <button>Cancelar</button>
+    </form>
+  </dialog>
+
+  <button class="fixed bottom-13 left-4" (click)="openDeleteCharacterDialog()">
     Eliminar
   </button>
+
   <button class="fixed bottom-13 right-4" (click)="router.navigate(['/'])">
     Volver
   </button>

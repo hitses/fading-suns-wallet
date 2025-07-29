@@ -1,21 +1,17 @@
 import {
   Component,
+  ElementRef,
   inject,
   OnDestroy,
   OnInit,
   signal,
+  ViewChild,
   WritableSignal,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CharacterService } from './character.service';
 import { Character as ICharacter } from '../../interfaces/character';
-import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-  RouterLinkActive,
-  RouterOutlet,
-} from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { Navbar } from './components/navbar/navbar';
 
 @Component({
@@ -24,6 +20,9 @@ import { Navbar } from './components/navbar/navbar';
   templateUrl: './character.html',
 })
 export default class Character implements OnInit, OnDestroy {
+  @ViewChild('deleteCharacterDialog')
+  deleteCharacterDialog!: ElementRef<HTMLDialogElement>;
+
   character: WritableSignal<ICharacter | undefined> = signal<
     ICharacter | undefined
   >(undefined);
@@ -63,6 +62,11 @@ export default class Character implements OnInit, OnDestroy {
         error: (err) => this.character.set(undefined),
       }),
     );
+  }
+
+  openDeleteCharacterDialog() {
+    if (this.deleteCharacterDialog)
+      this.deleteCharacterDialog.nativeElement.showModal();
   }
 
   deleteCharacter(): void {
