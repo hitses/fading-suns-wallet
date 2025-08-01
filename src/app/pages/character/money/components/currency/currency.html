@@ -1,0 +1,23 @@
+<li class="flex items-center">
+  @for (value of decrementValues(); track value) {
+    <button
+      (click)="update.emit(value)"
+      class="font-caslon text-xl px-2 w-12 text-center cursor-pointer"
+    >
+      {{ value }}
+    </button>
+  }
+
+  <span class="font-caslon text-xl w-48 text-center"
+    >{{ currencyName() }}: {{ currencyValue() }}</span
+  >
+
+  @for (value of incrementValues(); track value) {
+    <button
+      (click)="update.emit(value)"
+      class="font-caslon text-xl px-2 w-12 text-center cursor-pointer"
+    >
+      +{{ value }}
+    </button>
+  }
+</li>

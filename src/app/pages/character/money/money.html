@@ -4,34 +4,38 @@
   <section class="h-[650px] overflow-y-scroll">
     <h2 class="font-caslon text-3xl pl-2">Dinero</h2>
 
-    <ul class="select-none pl-2">
-      <li>
-        <button (click)="plusFenix(1)">+1</button>
-        <span class="font-caslon text-lg">Fénix: {{ character()?.fenix }}</span>
-        <button (click)="minusFenix(1)">-1</button>
-      </li>
+    <ul class="select-none pl-2 mt-10">
+      <currency-component
+        currencyName="Fénix"
+        [currencyValue]="character()?.fenix"
+        [incrementValues]="[1, 10, 100, 1000]"
+        [decrementValues]="[-1, -10, -100, -1000]"
+        (update)="updateFenix($event)"
+      />
 
-      <li>
-        <button (click)="plusBlason()">+1</button>
-        <span class="font-caslon text-lg"
-          >Blasones: {{ character()?.blason }}</span
-        >
-        <button (click)="minusBlason()">-1</button>
-      </li>
+      <currency-component
+        currencyName="Blasones"
+        [currencyValue]="character()?.blason"
+        [incrementValues]="[1]"
+        [decrementValues]="[-1]"
+        (update)="updateBlason($event)"
+      />
 
-      <li>
-        <button (click)="plusAla()">+1</button>
-        <span class="font-caslon text-lg">Alas: {{ character()?.ala }}</span>
-        <button (click)="minusAla()">-1</button>
-      </li>
+      <currency-component
+        currencyName="Ala"
+        [currencyValue]="character()?.ala"
+        [incrementValues]="[1]"
+        [decrementValues]="[-1]"
+        (update)="updateAla($event)"
+      />
 
-      <li>
-        <button (click)="plusCresta(1)">+1</button>
-        <span class="font-caslon text-lg"
-          >Crestas: {{ character()?.cresta }}</span
-        >
-        <button (click)="minusCresta(1)">-1</button>
-      </li>
+      <currency-component
+        currencyName="Crestas"
+        [currencyValue]="character()?.cresta"
+        [incrementValues]="[1, 10]"
+        [decrementValues]="[-1, -10]"
+        (update)="updateCresta($event)"
+      />
     </ul>
   </section>
 }
